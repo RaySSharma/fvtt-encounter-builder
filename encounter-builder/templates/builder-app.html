@@ -1,0 +1,55 @@
+
+<form id="EBForm" autocomplete="off" onsubmit="event.preventDefault();" >
+    <div id="EBContainers">
+
+        <fieldset class="leftContainer">
+            <legend>Players</legend>
+            <div class="leftField">
+                {{#each pcs}}
+                    <div class='pc-container'>
+                        <img class="pc-portraits" src="{{this.img}}" title="{{this.name}}" id="{{this.id}}"/>
+                    </div>
+                {{/each}}
+            </div>
+        </fieldset>
+
+        <div class="centerContainer">
+            <div class="difficulty-rating">
+                <h1>{{capitalizeAll this.difficulty}}</h1>
+            </div>
+            <div class="difficulty-threshold">
+                {{#with pcrating}}
+                    <label>Easy: {{easy}} XP</label>
+                    <label>Medium: {{medium}} XP</label>
+                    <label>Hard: {{hard}} XP</label>
+                    <label>Deadly: {{deadly}} XP</label>
+                {{/with}}                
+            </div>
+            <div class="daily-budget">
+                <label>Daily Budget: {{dailyxp}} XP</label>
+            </div>
+        </div>
+
+        <fieldset class="rightContainer">
+            <legend>Opponents</legend>
+            <div class="rightField">
+                {{#each npcs}}
+                    <div class='npc-container'>
+                        <img class='npc-portraits' src="{{this.img}}" title="{{this.name}}" />
+                    </div>
+                {{/each}}
+            </div>
+        </fieldset>
+        
+    </div>
+    <div id="EBOutcome">
+        <div class='scores'>
+            <h2>
+                Total XP: {{this.totalxp}}
+            </h2>
+            <h3>
+                XP / player: {{this.perpcxp}}
+            </h3>
+        </div>
+    </div>
+</form>
