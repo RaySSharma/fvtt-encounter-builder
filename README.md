@@ -22,6 +22,7 @@ This module adds an Application to aid in building D&D5E combat encounters. Foll
 * Drag-and-drop tokens onto or off the Application.
 
 ![Encounter](./images/testencounter.png "Encounter Building")
+![Encounter2](./images/testencounter.gif "Encounter Building 2")
 
 ### Installation
 
