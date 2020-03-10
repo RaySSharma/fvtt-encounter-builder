@@ -16,17 +16,30 @@
 #EBContainers .leftField {
     display: flex;
     flex-wrap: wrap;
+    position: relative;
+}
+#EBContainers .pc-container {
+    opacity: 1;
+    position: relative;
+    margin: 0 auto;
 }
 #EBContainers .pc-portraits {
     width: 50px;
     height: 50px;
 }
-#EBContainers .pc-container {
-    padding: 2%;
-    line-height: 0%;
+#EBContainers .subtract {
+    opacity: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
 }
 #EBContainers .pc-container:hover .pc-portraits {
     opacity: 0.3;
+}
+#EBContainers .pc-container:hover .subtract {
+    opacity: 0.8;
 }
 
 #EBContainers .centerContainer {
@@ -56,16 +69,20 @@
     display: flex;
     flex-wrap: wrap;
 }
+#EBContainers .npc-container {
+    opacity: 1;
+    position: relative;
+    margin: 0 auto;
+}
 #EBContainers .npc-portraits {
     width: 50px;
     height: 50px;
 }
-#EBContainers .npc-container {
-    padding: 2%;
-    line-height: 0%;
-}
 #EBContainers .npc-container:hover .npc-portraits {
     opacity: 0.3;
+}
+#EBContainers .npc-container:hover .subtract {
+    opacity: 0.8;
 }
 
 #EBOutcome .scores {

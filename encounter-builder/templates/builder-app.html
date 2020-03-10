@@ -8,6 +8,9 @@
                 {{#each pcs}}
                     <div class='pc-container'>
                         <img class="pc-portraits" src="{{this.img}}" title="{{this.name}}" id="{{this.id}}"/>
+                        <div class="subtract">
+                            <i class="fas fa-minus" title="{{this.name}}" id="{{this.id}}"></i>
+                        </div>
                     </div>
                 {{/each}}
             </div>
@@ -35,7 +38,10 @@
             <div class="rightField">
                 {{#each npcs}}
                     <div class='npc-container'>
-                        <img class='npc-portraits' src="{{this.img}}" title="{{this.name}}" />
+                        <img class='npc-portraits' src="{{this.img}}" title="{{this.name}}" id="{{this.id}}"/>
+                        <div class="subtract">
+                            <i class="fas fa-minus"></i>
+                        </div>
                     </div>
                 {{/each}}
             </div>

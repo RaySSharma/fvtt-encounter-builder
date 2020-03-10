@@ -2,7 +2,7 @@
   "name": "encounter-builder",
   "title": "5e Encounter Builder",
   "description": "Adds an application to determine encounter difficulty, based on the Kobold Fight Club.",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "minimumCoreVersion": "0.5.0",
   "author": "RaySSharma",
   "scripts": ["./src/encounter-builder.js", "./src/builder-form.js"],

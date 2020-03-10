@@ -15,6 +15,8 @@ class EncounterBuilderApplication extends Application {
     constructor(Actors, options = {}) {
         super(options);
 
+        if ( !game.user.isGM) return;
+
         this.object = Actors
         this.pc = [];
         this.npc = [];
@@ -124,7 +126,7 @@ class EncounterBuilderApplication extends Application {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.title = game.i18n.localize("EB.Title");
-        options.id = "encounter-builder";
+        options.id = game.i18n.localize("EB.id");
         options.template = "modules/encounter-builder/templates/builder-app.html";
         options.closeOnSubmit = true;
         options.popOut = true;
@@ -151,12 +153,12 @@ class EncounterBuilderApplication extends Application {
         html.find('.pc-container').each((i, li) => {
             li.setAttribute("draggable", true);
             li.addEventListener('dragstart', this._onDragStart, false);
-            li.addEventListener("dragend", this._onDragEnd.bind(this));
+            li.addEventListener('click', this._onClickPortrait.bind(this));
         });
         html.find('.npc-container').each((i, li) => {
             li.setAttribute("draggable", true);
             li.addEventListener('dragstart', this._onDragStart, false);
-            li.addEventListener("dragend", this._onDragEnd.bind(this));
+            li.addEventListener('click', this._onClickPortrait.bind(this));
         });
         html[0].render = this.render;
         html[0].ondragover = this._onDragOver;
@@ -183,11 +185,12 @@ class EncounterBuilderApplication extends Application {
         catch (err) {
             return false;
         }
-        const app = game.users.apps.find(b => b.id === "encounter-builder");
+        const app = game.users.apps.find(b => b.id === game.i18n.localize("EB.id"));
         
         let actor;
         try {
-            actor = game.actors.entities.find(b => b.id === data.id);
+            if ( data.pack ) actor = await game.actors.importFromCollection(data.pack, data.id)
+            else actor = game.actors.get(data.id)
         }
         catch (err) {
             console.log(game.i18n.localize("EB.ImportError"));
@@ -211,47 +214,54 @@ class EncounterBuilderApplication extends Application {
         return false;
     }
 
-    _onDragStart(event) {    
+    _onDragStart(event) {  
+        event.stopPropagation(); 
+        const id = this.firstElementChild.id
+        const name = this.firstElementChild.title
+
         event.dataTransfer.setData("text/plain", JSON.stringify({
-            name: event.explicitOriginalTarget.attributes.title.value
+            type: game.actors.entity,
+            id: id,
+            name: name
         }));
     }
 
-    /**
-     * When dragging from application, should try to remove actor.
-     *
-     * @param {*} event
-     * @returns {Promise}
-     * @memberof EncounterBuilderApplication
-     */
     _onDragEnd(event) {
         event.preventDefault();
-        if (event.dataTransfer.dropEffect !== 'none') {
-            if ((event.explicitOriginalTarget.className === "pc-portraits") || (event.explicitOriginalTarget.className === "npc-portraits")) {
-                let data;
-                try {
-                    data = JSON.parse(event.dataTransfer.getData('text/plain'));
-                }
-                catch (err) {
-                    return false;
-                }
+        return false;
+    }
 
-                let pcExists = this.pc.find(b => b.name === data.name);
-                let npcExists = this.npc.find(b => b.name === data.name);
-                if (pcExists) {
-                    let ix = this.pc.findIndex(b => b.name === data.name);
-                    this.pc.pop(ix);
-                }
-                if (npcExists) {
-                    let ix = this.npc.findIndex(b => b.name === data.name);
-                    this.npc.pop(ix);
-                }
+    /**
+     * Remove actor from calculation on clicking the portrait.
+     *
+     * @param {*} event
+     * @memberof EncounterBuilderApplication
+     */
+    _onClickPortrait(event) {
+        event.stopPropagation();
+        const isPCPortrait = event.srcElement.classList.value === "pc-portraits"
+        const isNPCPortrait = event.srcElement.classList.value === "npc-portraits"
+        const isHoverImage = event.srcElement.classList.value === "fas fa-minus"
+        if ((isPCPortrait) || (isNPCPortrait) || (isHoverImage)) {
 
-                const app = game.users.apps.find(b => b.id === "encounter-builder");
-                app.calcXPThresholds();
-                app.calcRating();
-                app.render();
+            let name = event.srcElement.title
+
+            let pcExists = this.pc.find(b => b.name === name);
+            let npcExists = this.npc.find(b => b.name === name);
+
+            if (pcExists) {
+                let ix = this.pc.findIndex(b => b.name === name);
+                this.pc.pop(ix);
             }
+            if (npcExists) {
+                let ix = this.npc.findIndex(b => b.name === name);
+                this.npc.pop(ix);
+            }
+
+            const app = game.users.apps.find(b => b.id === game.i18n.localize("EB.id"));
+            app.calcXPThresholds();
+            app.calcRating();
+            app.render();
         }
     }
 

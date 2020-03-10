@@ -1,7 +1,7 @@
 ## 5E Encounter Builder
 
 * **Author**: RaySSharma#4736
-* **Version**: 0.0.2
+* **Version**: 0.1.0
 * **Foundry VTT Compatibility**: 0.5.0+
 * **System Compatibility (If applicable)**: D&D5E
 * **Translation Support**: en
@@ -19,7 +19,8 @@ This module adds an Application to aid in building D&D5E combat encounters. Foll
 * Includes difficulty multipliers for fights against many opponents
 * Adjusts difficulty for parties of <3 players, or >5 players.
 * Calculates total XP and XP per player.
-* Drag-and-drop tokens onto or off the Application.
+* Drag-and-drop from compendiums or existing actors.
+* Drag-and-drop from builder to canvas.
 
 ![Encounter](./images/testencounter.png "Encounter Building")
 ![Encounter2](./images/testencounter.gif "Encounter Building 2")
@@ -46,4 +47,12 @@ This module adds an Application to aid in building D&D5E combat encounters. Foll
 
 #### 0.0.2
 
-* Fixed call to the Application parent class (thanks @tposney#1462)
+* Fixed call to the Application parent class (thanks @tposney#1462).
+
+#### 0.1.0
+
+* Added drag-and-drop for actors from builder to canvas.
+* Added drag-and-drop for actors in compendiums to builder.
+* Changed to click-to-remove for actors in builder.
+* Added on-hover image for actors in builder.
+* Added Chrome support (event.explicitOriginalTarget -> event.srcElement).
