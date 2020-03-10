@@ -1,7 +1,7 @@
 ## 5E Encounter Builder
 
 * **Author**: RaySSharma#4736
-* **Version**: 0.0.1
+* **Version**: 0.0.2
 * **Foundry VTT Compatibility**: 0.5.0+
 * **System Compatibility (If applicable)**: D&D5E
 * **Translation Support**: en
@@ -43,3 +43,7 @@ This module adds an Application to aid in building D&D5E combat encounters. Foll
 #### 0.0.1
 
 * Created the Encounter Builder Application.
+
+#### 0.0.2
+
+* Fixed call to the Application parent class (thanks @tposney#1462)
