@@ -13,7 +13,7 @@ Handlebars.registerHelper("capitalizeAll", function (str) {
 
 class EncounterBuilderApplication extends Application {
     constructor(Actors, options = {}) {
-        super(Actors, options);
+        super(options);
 
         this.object = Actors
         this.pc = [];
