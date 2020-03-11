@@ -1,7 +1,7 @@
 ## 5E Encounter Builder
 
 * **Author**: RaySSharma#4736
-* **Version**: 0.1.0
+* **Version**: 0.2.0
 * **Foundry VTT Compatibility**: 0.5.0+
 * **System Compatibility (If applicable)**: D&D5E
 * **Translation Support**: en
@@ -15,12 +15,15 @@
 
 This module adds an Application to aid in building D&D5E combat encounters. Following a similar design to [Kobold Fight Club](https://kobold.club/fight/#/encounter-builder), this module calculates encounter difficulty for your chosen PCs and monsters/NPCs. Encounter prep has never been easier!
 
-* Calculates combat difficulty based on XP thresholds (PHB) for players
+* Calculates combat difficulty based on XP thresholds (DMG) for players
 * Includes difficulty multipliers for fights against many opponents
 * Adjusts difficulty for parties of <3 players, or >5 players.
 * Calculates total XP and XP per player.
 * Drag-and-drop from compendiums or existing actors.
 * Drag-and-drop from builder to canvas.
+* *Approximates* encounter difficulty for friendly monsters or hostile players
+  * Hostile player XP set by comparing level to the deadly XP threshold table.
+  * Allied monster levels set by comparing XP to the deadly XP threshold table.
 
 ![Encounter](./images/testencounter.png "Encounter Building")
 ![Encounter2](./images/testencounter.gif "Encounter Building 2")
@@ -56,3 +59,11 @@ This module adds an Application to aid in building D&D5E combat encounters. Foll
 * Changed to click-to-remove for actors in builder.
 * Added on-hover image for actors in builder.
 * Added Chrome support (event.explicitOriginalTarget -> event.srcElement).
+
+#### 0.2.0
+
+* Added support for hostile (opponent) players or friendly (allied) monsters.
+* Player characters can only be placed once. Monsters can be placed multiple times.
+* Added box highlighting when dragging opponents.
+* Refactored HTML and CSS.
+* Added button to clear builder.

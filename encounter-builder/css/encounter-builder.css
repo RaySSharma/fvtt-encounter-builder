@@ -5,6 +5,10 @@
     min-height: 200px;
 }
 #EBContainers .group-container {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
     width: 30%;
 }
 #EBContainers .group-legend {
@@ -61,6 +65,7 @@
 }
 
 #EBXP {
+    position: relative;
     display: flex;
     height: auto;
     width: 100%;
@@ -69,4 +74,12 @@
     width: 50%;
     margin: 0 auto;
     text-align: center;
+}
+#EBXP .clear{
+    position: absolute;
+    margin-top: 5%;
+    width: 15%;
+    height: 45%;
+    text-align: center;
+    transform: translate(550%, 0%);
 }

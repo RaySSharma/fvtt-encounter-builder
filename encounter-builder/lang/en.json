@@ -3,6 +3,5 @@
   "EB.Description": "Adds an application to determine encounter difficulty, based on the Kobold Fight Club.",
   "EB.id": "encounter-builder",
   "EB.Submit": "Submit",
-  "EB.EntityError": "EncounterBuilder | App only accept Actors",
-  "EB.ImportError": "EncounterBuilder | Must import Actor first"
+  "EB.EntityError": "EncounterBuilder | App only accept Actors"
 }

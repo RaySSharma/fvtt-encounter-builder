@@ -1,58 +1,63 @@
-<div id="EBContainers">
-    <fieldset class="group-container">
-        <legend class='group-legend'>Players</legend>
-        <div class="group-field">
-            {{#each pcs}}
-                <div class='actor-container'>
-                    <img class="actor-portrait" src="{{this.img}}" title="{{this.name}}" id="{{this.id}}"/>
-                    <div class="actor-subtract">
-                        <i class="fas fa-minus" title="{{this.name}}" id="{{this.id}}"></i>
+<form>
+    <div id="EBContainers">
+        <fieldset class="group-container ally-container">
+            <legend class='group-legend'>Allies</legend>
+            <div class="group-field ally-field">
+                {{#each allies}}
+                    <div class='actor-container'>
+                        <img class="actor-portrait" src="{{this.img}}" title="{{this.name}}" id="{{this.id}}"/>
+                        <div class="actor-subtract">
+                            <i class="fas fa-minus" title="{{this.name}}" id="{{this.id}}"></i>
+                        </div>
                     </div>
-                </div>
-            {{/each}}
-        </div>
-    </fieldset>
+                {{/each}}
+            </div>
+        </fieldset>
 
-    <div class="center-container">
-        <div class="difficulty-rating">
-            <h1>{{capitalizeAll this.difficulty}}</h1>
+        <div class="center-container">
+            <div class="difficulty-rating">
+                <h1>{{capitalizeAll this.difficulty}}</h1>
+            </div>
+            <div class="difficulty-threshold">
+                {{#with ratings}}
+                    <label>Easy: {{easy}} XP</label>
+                    <label>Medium: {{medium}} XP</label>
+                    <label>Hard: {{hard}} XP</label>
+                    <label>Deadly: {{deadly}} XP</label>
+                {{/with}}                
+            </div>
+            <div class="daily-budget">
+                <label>Daily Budget: {{dailyxp}} XP</label>
+            </div>
         </div>
-        <div class="difficulty-threshold">
-            {{#with pcrating}}
-                <label>Easy: {{easy}} XP</label>
-                <label>Medium: {{medium}} XP</label>
-                <label>Hard: {{hard}} XP</label>
-                <label>Deadly: {{deadly}} XP</label>
-            {{/with}}                
-        </div>
-        <div class="daily-budget">
-            <label>Daily Budget: {{dailyxp}} XP</label>
-        </div>
+
+        <fieldset class="group-container opponent-container">
+            <legend class='group-legend'>Opponents</legend>
+            <div class="group-field opponent-field">
+                {{#each opponents}}
+                    <div class='actor-container'>
+                        <img class='actor-portrait' src="{{this.img}}" title="{{this.name}}" id="{{this.id}}"/>
+                        <div class="actor-subtract">
+                            <i class="fas fa-minus" title="{{this.name}}" id="{{this.id}}"></i>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </fieldset>
     </div>
 
-    <fieldset class="group-container">
-        <legend class='group-legend'>Opponents</legend>
-        <div class="group-field">
-            {{#each npcs}}
-                <div class='actor-container'>
-                    <img class='actor-portrait' src="{{this.img}}" title="{{this.name}}" id="{{this.id}}"/>
-                    <div class="actor-subtract">
-                        <i class="{{this.icon}}" title="{{this.name}}" id="{{this.id}}"></i>
-                    </div>
-                </div>
-            {{/each}}
+    <div id="EBXP">
+        <div class='scores'>
+            <h2>
+                Total XP: {{this.totalxp}}
+            </h2>
+
+            <h3>
+                XP / player: {{this.allyxp}}
+            </h3>
         </div>
-    </fieldset>
-</div>
-
-<div id="EBXP">
-    <div class='scores'>
-        <h2>
-            Total XP: {{this.totalxp}}
-        </h2>
-
-        <h3>
-            XP / player: {{this.perpcxp}}
-        </h3>
+        <button class='clear' type='button'>
+            clear
+        </button>
     </div>
-</div>
+</form>
