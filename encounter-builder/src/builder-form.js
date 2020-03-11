@@ -7,6 +7,8 @@ CONFIG.xpThresholds = {
 };
 CONFIG.encounterMultipliers = [0.5, 1.0, 1.5, 2.0, 2.0, 2.0, 2.0, 2.5, 2.5, 2.5, 2.5, 3.0, 3.0, 3.0, 3.0, 4.0, 5.0];
 CONFIG.dailyXPBudget = [300, 600, 1200, 1700, 3500, 4000, 5000, 6000, 7500, 9000, 10500, 11500, 13500, 15000, 18000, 20000, 25000, 27000, 30000, 40000]
+CONFIG.icon = "fas fa-minus"
+
 Handlebars.registerHelper("capitalizeAll", function (str) {
     return str.toUpperCase();
 });
@@ -144,18 +146,14 @@ class EncounterBuilderApplication extends Application {
             perpcxp: this.perPCXP,
             totalxp: this.totalXP,
             dailyxp: this.dailyXP,
-            difficulty: this.combatDifficulty
+            difficulty: this.combatDifficulty,
+            icon: CONFIG.icon
         };
     }
 
     activateListeners(html) {
         super.activateListeners(html);
-        html.find('.pc-container').each((i, li) => {
-            li.setAttribute("draggable", true);
-            li.addEventListener('dragstart', this._onDragStart, false);
-            li.addEventListener('click', this._onClickPortrait.bind(this));
-        });
-        html.find('.npc-container').each((i, li) => {
+        html.find('.actor-container').each((i, li) => {
             li.setAttribute("draggable", true);
             li.addEventListener('dragstart', this._onDragStart, false);
             li.addEventListener('click', this._onClickPortrait.bind(this));
@@ -239,10 +237,9 @@ class EncounterBuilderApplication extends Application {
      */
     _onClickPortrait(event) {
         event.stopPropagation();
-        const isPCPortrait = event.srcElement.classList.value === "pc-portraits"
-        const isNPCPortrait = event.srcElement.classList.value === "npc-portraits"
-        const isHoverImage = event.srcElement.classList.value === "fas fa-minus"
-        if ((isPCPortrait) || (isNPCPortrait) || (isHoverImage)) {
+        const isPortrait = event.srcElement.classList.value === "actor-portrait"
+        const isHoverImage = event.srcElement.classList.value === CONFIG.icon
+        if ((isPortrait) || (isHoverImage)) {
 
             let name = event.srcElement.title
 

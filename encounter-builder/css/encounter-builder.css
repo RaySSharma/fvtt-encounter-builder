@@ -4,30 +4,32 @@
     width: 100%;
     min-height: 200px;
 }
-#EBOutcome {
-    display: flex;
-    height: auto;
-    width: 100%;
-}
-
-#EBContainers .leftContainer {
+#EBContainers .group-container {
     width: 30%;
 }
-#EBContainers .leftField {
+#EBContainers .group-legend {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+#EBContainers .center-container {
+    width: 50%;
+}
+#EBContainers .group-field {
     display: flex;
     flex-wrap: wrap;
     position: relative;
 }
-#EBContainers .pc-container {
+#EBContainers .actor-container {
     opacity: 1;
     position: relative;
     margin: 0 auto;
 }
-#EBContainers .pc-portraits {
+#EBContainers .actor-portrait {
     width: 50px;
     height: 50px;
 }
-#EBContainers .subtract {
+#EBContainers .actor-subtract {
     opacity: 0;
     position: absolute;
     top: 50%;
@@ -35,15 +37,11 @@
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
 }
-#EBContainers .pc-container:hover .pc-portraits {
+#EBContainers .actor-container:hover .actor-portrait {
     opacity: 0.3;
 }
-#EBContainers .pc-container:hover .subtract {
+#EBContainers .actor-container:hover .actor-subtract {
     opacity: 0.8;
-}
-
-#EBContainers .centerContainer {
-    width: 50%;
 }
 #EBContainers .difficulty-rating {
     width: 70%;
@@ -62,30 +60,12 @@
     padding-top: 10%;
 }
 
-#EBContainers .rightContainer {
-    width: 30%;
-}
-#EBContainers .rightField {
+#EBXP {
     display: flex;
-    flex-wrap: wrap;
+    height: auto;
+    width: 100%;
 }
-#EBContainers .npc-container {
-    opacity: 1;
-    position: relative;
-    margin: 0 auto;
-}
-#EBContainers .npc-portraits {
-    width: 50px;
-    height: 50px;
-}
-#EBContainers .npc-container:hover .npc-portraits {
-    opacity: 0.3;
-}
-#EBContainers .npc-container:hover .subtract {
-    opacity: 0.8;
-}
-
-#EBOutcome .scores {
+#EBXP .scores {
     width: 50%;
     margin: 0 auto;
     text-align: center;
