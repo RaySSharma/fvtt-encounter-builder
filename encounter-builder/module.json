@@ -16,6 +16,6 @@
   "system": "dnd5e",
   "url": "https://github.com/RaySSharma/fvtt-encounter-builder",
   "manifest": "https://raw.githubusercontent.com/RaySSharma/fvtt-encounter-builder/master/encounter-builder/module.json",
-  "download": "https://github.com/RaySSharma/fvtt-encounter-builder/archive/0.2.2.zip",
+  "download": "https://github.com/RaySSharma/fvtt-encounter-builder/archive/v0.2.2.zip",
   "readme": "https://raw.githubusercontent.com/RaySSharma/fvtt-encounter-builder/master/README.md"
 }
