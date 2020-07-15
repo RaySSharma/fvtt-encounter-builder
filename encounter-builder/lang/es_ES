@@ -1,0 +1,7 @@
+{
+  "EB.Title": "Constructor de encuentros 5E",
+  "EB.Description": "Agrega una aplicación para determinar la dificultad de un encuentro, basado en los cálculos de Kobold Fight Club.",
+  "EB.id": "encounter-builder",
+  "EB.Submit": "Enviar",
+  "EB.EntityError": "Constructor de encuentros 5E | App solo acepta actores"
+}
