@@ -8,11 +8,23 @@
   "author": "RaySSharma",
   "scripts": ["./src/encounter-builder.js", "./src/builder-form.js"],
   "styles": ["./css/encounter-builder.css"],
-  "languages": [{
+  "languages": [
+    {
     "lang": "en",
     "name": "English",
     "path": "lang/en.json"
-  }],
+    },
+    {
+      "lang": "pt",
+      "name": "Português do Brasil",
+      "path": "lang/pt-BR.json"
+    },
+    {
+      "lang": "es",
+      "name": "Castellano",
+      "path": "lang/es-ES.json"
+    }
+],
   "system": "dnd5e",
   "url": "https://github.com/RaySSharma/fvtt-encounter-builder",
   "manifest": "https://raw.githubusercontent.com/RaySSharma/fvtt-encounter-builder/master/encounter-builder/module.json",
