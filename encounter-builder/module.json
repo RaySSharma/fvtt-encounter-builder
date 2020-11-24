@@ -4,7 +4,7 @@
   "description": "Adds an application to determine encounter difficulty, based on the Kobold Fight Club.",
   "version": "0.2.2",
   "minimumCoreVersion": "0.5.0",
-  "compatibleCoreVersion": "0.6.6",
+  "compatibleCoreVersion": "0.7.7",
   "author": "RaySSharma",
   "scripts": ["./src/encounter-builder.js", "./src/builder-form.js"],
   "styles": ["./css/encounter-builder.css"],
