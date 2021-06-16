@@ -9,7 +9,8 @@ EB.CRtoXP = {
     0: 10, 0.125: 25, 0.25: 50, 0.5: 100, 1: 200, 2: 450, 3: 700, 4: 1100, 5: 1800, 6: 2300, 7: 2900, 8: 3900, 9: 5000, 10: 5900, 11: 7200, 12: 8400, 13: 10000, 14: 11500, 15: 13000, 16: 15000, 17: 18000, 18: 20000, 19: 22000, 20: 25000, 21: 33000, 22: 41000, 23: 50000, 24: 62000, 25: 75000, 26: 90000, 27: 105000, 28: 120000, 29: 135000, 30: 155000
 
 };
-EB.encounterMultipliers = [0.5, 1.0, 1.5, 2.0, 2.0, 2.0, 2.0, 2.5, 2.5, 2.5, 2.5, 3.0, 3.0, 3.0, 3.0, 4.0, 5.0];
+EB.encounterMultipliers = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0, 5.0];
+EB.encounterMultiByNbMonsters = [0.5, 1.0, 1.5, 2.0, 2.0, 2.0, 2.0, 2.5, 2.5, 2.5, 2.5, 3.0, 3.0, 3.0, 3.0, 4.0, 5.0];
 EB.dailyXPBudget = [300, 600, 1200, 1700, 3500, 4000, 5000, 6000, 7500, 9000, 10500, 11500, 13500, 15000, 18000, 20000, 25000, 27000, 30000, 40000];
 EB.difficultyToTreatPC = "deadly";
 
@@ -147,7 +148,7 @@ class EncounterBuilderApplication extends Application {
                 multiplier = 5.0;
             }
             else if (numOpponents > 0) {
-                multiplier = EB.encounterMultipliers[this.opponents.length + 1];
+                multiplier = EB.encounterMultiByNbMonsters[this.opponents.length + 1];
             }
         }
         else if (numAllies > 5) {
@@ -155,7 +156,8 @@ class EncounterBuilderApplication extends Application {
                 multiplier = 4.0;
             }
             else if (numOpponents > 0) {
-                multiplier = EB.encounterMultipliers[this.opponents.length - 1];
+                multiplier = EB.encounterMultiByNbMonsters[this.opponents.length];
+                multiplier = EB.encounterMultipliers[EB.encounterMultipliers.findIndex(multi => multi === multiplier) - 1];
             }
         }
         else {
@@ -163,7 +165,7 @@ class EncounterBuilderApplication extends Application {
                 multiplier = 4.0;
             }
             else if (numOpponents > 0) {
-                multiplier = EB.encounterMultipliers[this.opponents.length];
+                multiplier = EB.encounterMultiByNbMonsters[this.opponents.length];
             }
         }
 
@@ -211,7 +213,7 @@ class EncounterBuilderApplication extends Application {
     async _onDropGeneral(event) {
         let data;
         data = JSON.parse(event.dataTransfer.getData("text/plain"));
-        if (data.type !== game.actors.entity) {
+        if (data.type !== game.actors.documentName) {
             throw new Error(game.i18n.localize("EB.EntityError"));
         }
 
