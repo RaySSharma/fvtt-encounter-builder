@@ -220,10 +220,10 @@ class EncounterBuilderApplication extends Application {
         const app = game.users.apps.find(e => e.id === game.i18n.localize("EB.id"));
         let actor;
         if (data.pack) {
-            actor = await game.actors.importFromCollection(data.pack, data.id)
+			actor = await Actor.fromDropData(data);
         }
         else {
-            actor = game.actors.get(data.id)
+            actor = game.actors.get(data.id);
         }
         return [app, actor]
     }
