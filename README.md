@@ -1,8 +1,8 @@
 ## 5E Encounter Builder
 
 * **Author**: RaySSharma#4736
-* **Version**: 0.2.2
-* **Foundry VTT Compatibility**: 0.5.0+
+* **Version**: 0.3.0
+* **Foundry VTT Compatibility**: 0.9.0+
 * **System Compatibility (If applicable)**: D&D5E
 * **Translation Support**: en
 
@@ -67,3 +67,7 @@ This module adds an Application to aid in building D&D5E combat encounters. Foll
 * Added box highlighting when dragging opponents.
 * Refactored HTML and CSS.
 * Added button to clear builder.
+
+#### 0.3.0
+
+* Updated for Foundry VTT V9+ (thanks @dmizrahi)
