@@ -105,14 +105,14 @@ class EncounterBuilderApplication extends Application {
         this.allies.forEach(function (ally, index) {
 
             let level;
-            if (ally.data.type === "character") {
-                level = parseInt(ally.data.data.details.level);
+            if (ally.type === "character") {
+                level = parseInt(ally.system.details.level);
                 if (level === 0) {
                     level = 1;
                 }
             }
-            else if (ally.data.type === "npc") {
-                let xp = EB.CRtoXP[ally.data.data.details.cr];
+            else if (ally.type === "npc") {
+                let xp = EB.CRtoXP[ally.system.details.cr];
                 level = EB.xpThresholds.deadly.findIndex(e => e >= xp)
                 if (level < 0) {
                     level = 19;
@@ -127,15 +127,15 @@ class EncounterBuilderApplication extends Application {
         });
         this.opponents.forEach(function (opponent, index) {
             let xp;
-            if (opponent.data.type === "character") {
-                let level = opponent.data.data.details.level
+            if (opponent.type === "character") {
+                let level = opponent.system.details.level
                 if (level === 0) {
                     level = 1;
                 }
                 xp = EB.xpThresholds[EB.difficultyToTreatPC][level - 1]
             }
-            else if (opponent.data.type === "npc") {
-                xp = opponent.data.data.details.xp.value;
+            else if (opponent.type === "npc") {
+                xp = opponent.system.details.xp.value;
             }
             totalXP += xp;
         });
@@ -211,21 +211,33 @@ class EncounterBuilderApplication extends Application {
      * @memberof EncounterBuilderApplication
      */
     async _onDropGeneral(event) {
-        let data;
-        data = JSON.parse(event.dataTransfer.getData("text/plain"));
-        if (data.type !== game.actors.documentName) {
+        const data = JSON.parse(event.dataTransfer.getData("text/plain"));
+        const actors = []
+
+        function recur_folder(folder) {
+            const actors = folder.contents
+            const subfolders = folder.getSubfolders()
+            for (let i = 0; i < subfolders.length; i++) {
+                actors.push(...recur_folder(subfolders[i]))
+            }
+
+            return actors
+        }
+
+        if (data.type === "Folder" && data.documentName === "Actor") {
+            const folder = await Folder.fromDropData(data)
+            actors.push(...recur_folder(folder))
+        }
+        else if (data.type === game.actors.documentName) {
+            const actor = await Actor.fromDropData(data);
+            actors.push(actor)
+        }
+        else {
             throw new Error(game.i18n.localize("EB.EntityError"));
         }
 
         const app = game.users.apps.find(e => e.id === game.i18n.localize("EB.id"));
-        let actor;
-        if (data.pack) {
-			actor = await Actor.fromDropData(data);
-        }
-        else {
-            actor = game.actors.get(data.id);
-        }
-        return [app, actor]
+        return [app, actors]
     }
 
     /**
@@ -236,31 +248,10 @@ class EncounterBuilderApplication extends Application {
      */
     async _onDropAlly(event) {
         event.preventDefault();
-
-        let [app, actor] = await this._onDropGeneral(event);
-
-        let actorExists;
-        let actorExistsOpposing;
-        if (actor.data.type === "character") {
-            actorExists = app.allies.find(e => e.id === actor.id)
-            actorExistsOpposing = app.opponents.find(e => e.id === actor.id);
-
-            if (actorExistsOpposing) {
-                let ix = this.opponents.findIndex(e => e.id === actor.id);
-                this.opponents.splice(ix, 1);
-            }
-            if (!actorExists) {
-                app.allies.push(actor)
-            }
-        }
-        else if (actor.data.type === "npc") {
-            app.allies.push(actor);
-        }
-
-        app.calcXPThresholds();
-        app.calcRating();
-        app.render();
+        let [app, actors] = await this._onDropGeneral(event);
+        await this.processDrop(event, app.allies, app.opponents, app, actors)
     }
+
 
     /**
      * Ondrop for opponents. Cannot have a playable character multiple times. Can have monsters/npcs multiple times.
@@ -270,27 +261,31 @@ class EncounterBuilderApplication extends Application {
      */
     async _onDropOpponent(event) {
         event.preventDefault();
+        let [app, actors] = await this._onDropGeneral(event);
+        await this.processDrop(event, app.opponents, app.allies, app, actors)
+    }
 
-        let [app, actor] = await this._onDropGeneral(event)
+    async processDrop(event, currentDropZone, opposingDropZone, app, actors) {
 
         let actorExists;
         let actorExistsOpposing;
-        if (actor.data.type === "character") {
-            actorExists = app.opponents.find(e => e.id === actor.id);
-            actorExistsOpposing = app.allies.find(e => e.id === actor.id);
+        actors.forEach(function (actor) {
+            if (actor.type === "character") {
+                actorExists = currentDropZone.find(e => e.id === actor.id)
+                actorExistsOpposing = opposingDropZone.find(e => e.id === actor.id);
 
-            if (actorExistsOpposing) {
-                let ix = this.allies.findIndex(e => e.id === actor.id);
-                this.allies.splice(ix, 1);
+                if (actorExistsOpposing) {
+                    let ix = opposingDropZone.findIndex(e => e.id === actor.id);
+                    opposingDropZone.splice(ix, 1);
+                }
+                if (!actorExists) {
+                    currentDropZone.push(actor)
+                }
             }
-            if (!actorExists) {
-                app.opponents.push(actor)
+            else if (actor.type === "npc") {
+                currentDropZone.push(actor);
             }
-
-        }
-        else if (actor.data.type === "npc") {
-            app.opponents.push(actor);
-        }
+        })
 
         app.calcXPThresholds();
         app.calcRating();

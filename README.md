@@ -1,8 +1,8 @@
 ## 5E Encounter Builder
 
 * **Author**: RaySSharma#4736
-* **Version**: 0.3.0
-* **Foundry VTT Compatibility**: 0.9.0+
+* **Version**: 0.4.0
+* **Foundry VTT Compatibility**: 10+
 * **System Compatibility (If applicable)**: D&D5E
 * **Translation Support**: en
 
