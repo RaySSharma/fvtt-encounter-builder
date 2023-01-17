@@ -71,3 +71,7 @@ This module adds an Application to aid in building D&D5E combat encounters. Foll
 #### 0.3.0
 
 * Updated for Foundry VTT V9+ (thanks @dmizrahi)
+
+#### 0.4.0
+
+* Updated for Foundry VTT V10 (thanks stian-svedenborg)
