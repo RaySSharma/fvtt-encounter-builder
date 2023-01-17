@@ -223,8 +223,7 @@ class EncounterBuilderApplication extends Application {
 
             return actors
         }
-
-        if (data.type === "Folder" && data.documentName === "Actor") {
+        if (data.type === game.folders.documentName && data.documentName === game.actors.documentName) {
             const folder = await Folder.fromDropData(data)
             actors.push(...recur_folder(folder))
         }
@@ -232,8 +231,9 @@ class EncounterBuilderApplication extends Application {
             const actor = await Actor.fromDropData(data);
             actors.push(actor)
         }
+
         else {
-            throw new Error(game.i18n.localize("EB.EntityError"));
+                throw new Error(game.i18n.localize("EB.EntityError"));
         }
 
         const app = game.users.apps.find(e => e.id === game.i18n.localize("EB.id"));
@@ -313,12 +313,11 @@ class EncounterBuilderApplication extends Application {
     _onDragStart(event) {
         event.stopPropagation();
         const id = this.firstElementChild.id
-        const name = this.firstElementChild.title
+        const actor = game.actors.get(id)
 
         event.dataTransfer.setData("text/plain", JSON.stringify({
-            type: game.actors.entity,
-            id: id,
-            name: name
+            type: game.actors.documentName,
+            uuid: actor.uuid
         }));
     }
 
